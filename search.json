@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "milestones/00-test-post/index.html",
+    "href": "milestones/00-test-post/index.html",
+    "title": "Test post: every element in one place",
+    "section": "",
+    "text": "This post exists to test the publishing pipeline. Every element below is one a real essay will use. Unpublish it once essay 01 is live."
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#cold-open",
+    "href": "milestones/00-test-post/index.html#cold-open",
+    "title": "Test post: every element in one place",
+    "section": "A room, a sound, a date",
+    "text": "A room, a sound, a date\nStanford, late 1982. A terminal, a loudspeaker, and two students who have found that a few dozen memory locations and a single averaging instruction produce something that sounds unmistakably like a plucked string.1\nThis is beat one, the cold open: a scene, a sound, a moment. Italics and bold are fine here; headings above this level are not. Keep it around 150 words."
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#problem",
+    "href": "milestones/00-test-post/index.html#problem",
+    "title": "Test post: every element in one place",
+    "section": "What couldn’t be done",
+    "text": "What couldn’t be done\nBeat two states the problem. Before this milestone, what was impossible, or too expensive, or too slow? What did musicians do instead?\n\n\nA margin note sits beside the paragraph. Use it for the FPGA aside, a date, or a one-line “for the engineers” remark. Keep it under 40 words.\n\n\n\n\n\n\nNoteFollow the signal\n\n\n\nBlock A — the signal before. A signal block answers the one question the narrative just raised, then stops. Text is visible; code is folded. Here the question is “what does a simple tone even look like?”, so we make one.\n\n\nshow the code\nimport sys; sys.path.insert(0, \"model\")\nfrom ping import ping\nfrom sm import FS, io, plot\n\ny = ping()                                   # the model\nio.write_wav(\"out/audio/ping.wav\", y)        # keep the artifact on disk\nplot.waveform(y, t_max=0.02);\n\n\n\n\n\n\n\n\nFigure 1: The first 20 ms of a decaying two-partial tone: a fundamental at 440 Hz plus a quieter partial at 1320 Hz.\n\n\n\n\n\nThe sound itself, rendered by the same code:\n\n\n\n                \n                    \n                    Your browser does not support the audio element."
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#insight",
+    "href": "milestones/00-test-post/index.html#insight",
+    "title": "Test post: every element in one place",
+    "section": "The insight",
+    "text": "The insight\nBeat three is the idea in plain words, and the audio-critical paragraph. If a listener hears only this section, they should still come away knowing why the milestone worked. No equations. One image, if any.\n\nA blockquote for a primary-source line, a quote from the inventor, or an advertisement of the period. Attribute it in a footnote or citation.\n\n\n\n\n\n\n\nNoteFollow the signal\n\n\n\nBlock B — the mechanism. This is the block every essay has. Inline math is fine here: the fundamental period is T = 1/f_0, and the sample delay that produces it is N = f_s / f_0. Display math gets its own line:\n\ny[n] = e^{-\\alpha n / f_s}\\,\\big(\\sin(2\\pi f_0 n / f_s) + 0.3\\,\\sin(2\\pi\\,3 f_0\\, n / f_s)\\big)\n\n\n\nshow the code\nplot.spectrum(y, f_max=3000);\n\n\n\n\n\n\n\n\nFigure 2: Magnitude spectrum of the tone. Two peaks, as promised by the equation.\n\n\n\n\n\nA small table when parameters need listing:\n\nParameters of the test tone.\n\n\nparameter\nvalue\nmeaning\n\n\n\n\nf_0\n440 Hz\nfundamental\n\n\n\\alpha\n4 /s\ndecay rate\n\n\nf_s\n44.1 k\nsample rate"
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#story",
+    "href": "milestones/00-test-post/index.html#story",
+    "title": "Test post: every element in one place",
+    "section": "The people and the machine",
+    "text": "The people and the machine\nBeat four is the story proper: who, where, with what constraints, and what went wrong first. This is usually the longest beat.\n\n\n\n\n\n\nNoteFollow the signal\n\n\n\nBlock C — the detail that makes it sound right. The tweak the inventors found, or the one everyone gets wrong. Often the most interesting engineering in the essay. Code here can be shown without executing:\n# Shown, not run. Use a plain ```python fence when the point is to read\n# the code rather than to produce a figure.\ndef one_pole_lowpass(x, a=0.5):\n    y = np.zeros_like(x)\n    for n in range(1, len(x)):\n        y[n] = (1 - a) * x[n] + a * y[n - 1]\n    return y\nAnd an audio file already on disk can be embedded with plain HTML, which is also exactly how it goes into a Ghost HTML card:"
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#legacy",
+    "href": "milestones/00-test-post/index.html#legacy",
+    "title": "Test post: every element in one place",
+    "section": "What it changed",
+    "text": "What it changed\nBeat five: the records, the imitators, the descendants. Concrete names and years. Two or three paragraphs."
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#coda",
+    "href": "milestones/00-test-post/index.html#coda",
+    "title": "Test post: every element in one place",
+    "section": "Coda",
+    "text": "Coda\nBeat six returns to the cold open with one image to leave on. Short.\n\nRun it yourself: the model and outputs for this post live in milestones/00-test-post of the Sound Machines repository."
+  },
+  {
+    "objectID": "milestones/00-test-post/index.html#footnotes",
+    "href": "milestones/00-test-post/index.html#footnotes",
+    "title": "Test post: every element in one place",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nFootnotes are for asides that would interrupt the story. Sources go in sources.bib instead, and are cited inline like this (Karplus and Strong 1983).↩︎"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sound Machines",
+    "section": "",
+    "text": "Each entry below is one milestone in the history of music technology: a technique, a breakthrough, a machine. The story is told twice — once as history, for anyone who loves music, and once as a signal, for anyone who wants to know what actually happens to the sound.\nSort by Milestone to read chronologically, or by Published to see what’s new.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Milestone\n      \n      \n        Published - Oldest\n      \n      \n        Published - Newest\n      \n    \n  \n\n\n\n\n\nTest post: every element in one place\n\n\n\nmeta\n\n\n\nExercises every element an essay uses — narrative beats, signal blocks, code, math, audio, figures, notes, tables, citations — so each can be checked in Quarto and in Ghost.\n\n\n\n\n\nSep 14, 2026\n\n\n2026\n\n\n\n\n\nNo matching items"
+  }
+]
