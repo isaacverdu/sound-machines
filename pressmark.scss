@@ -59,9 +59,9 @@ $font-color: #1b1b1b; // self explanatory
 
 // Font Families
 $font-family-headings: 'Playfair Display', 'Bodoni', 'Times New Roman', serif;
-$font-family-text: 'Newsreader', 'Georgia', 'Times New Roman', serif;
+$font-family-text: 'Georgia', 'Newsreader' 'Times New Roman', serif;
 $font-family-smallcaps: 'Playfair Display SC', 'Playfair Display', 'Bodoni', 'Times New Roman', serif;
-$font-family-monospace:  "Liberation Mono", "Courier New", monospace ;
+$font-family-monospace:  "Consolas", "Liberation Mono", "Courier New", monospace ;
 
 $font-family-base: $font-family-text;
 $font-size-base: 19px;

@@ -7,6 +7,7 @@ project:
     - milestones/*/index.qmd
 
 website:
+  site-url: https://isaacverdu.github.io/sound-machines
   title: "Sound Machines"
   description: "The art, science and history of music technology, told from the signal's point of view."
   favicon: static/favicon.ico
@@ -19,10 +20,10 @@ website:
   page-navigation: false
   back-to-top-navigation: false
   page-footer:
-    left: |
-      Local preview site. The published essays live on Ghost.
-    right: |
-      Theme: <a href='https://github.com/skriptum/quarto-pressmark' target='_blank'>Pressmark</a>
+     left: |
+    #  Local preview site. The published essays live on Ghost.
+     right: |
+    #  Theme: <a href='https://github.com/skriptum/quarto-pressmark' target='_blank'>Pressmark</a>
 
 execute:
   # Cache executed cells in _freeze/ so a full-site render never re-runs
