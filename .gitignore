@@ -1,0 +1,44 @@
+# --- Quarto -------------------------------------------------------------
+/_site/
+/.quarto/
+*.quarto_ipynb          # temporary notebooks Quarto creates while executing
+/index_files/
+/milestones/*/index_files/
+# NOTE: _freeze/ is deliberately NOT ignored. Commit it so a full render
+# never re-executes every model.
+
+# --- Python -------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Secrets ------------------------------------------------------------
+# Ghost Admin API keys and the like. Never commit these; use env vars.
+.env
+.env.*
+*.key
+ghost/secrets*
+
+# --- Large media --------------------------------------------------------
+# Rendered model outputs in out/audio and out/figs ARE committed: they're
+# small and they're the artifacts. Recorded narration and any video are not.
+milestones/*/out/narration/
+milestones/*/out/video/
+*.mp4
+*.mov
+
+# --- OS / editors -------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+**/*.quarto_ipynb

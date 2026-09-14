@@ -1,0 +1,29 @@
+---
+title: "Sound Machines"
+subtitle: "The art, science and history of music technology, told from the signal's point of view."
+toc: false
+listing:
+  id: timeline
+  contents: milestones/*/index.qmd
+  type: default
+  sort: "year asc"
+  sort-ui: [year, date]
+  filter-ui: false
+  categories: true
+  fields: [year, title, description, date, categories]
+  field-display-names:
+    year: "Milestone"
+    date: "Published"
+  feed: false
+---
+
+Each entry below is one milestone in the history of music technology: a
+technique, a breakthrough, a machine. The story is told twice — once as
+history, for anyone who loves music, and once as a signal, for anyone who
+wants to know what actually happens to the sound.
+
+Sort by *Milestone* to read chronologically, or by *Published* to see what's
+new.
+
+::: {#timeline}
+:::

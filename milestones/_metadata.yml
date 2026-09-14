@@ -1,0 +1,18 @@
+# Settings shared by every essay under milestones/. Per-essay front matter
+# overrides these.
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-summary: "show the code"
+# Run each essay's Python from its own folder so relative paths like
+# out/audio/x.wav resolve. sm is importable because it's pip-installed (-e .).
+execute:
+  echo: true
+  warning: false
+# Copy rendered sounds and figures alongside the essay so raw <audio>/<img>
+# tags and the listing's `image:` field resolve in _site/.
+resources:
+  - "out/audio/*"
+  - "out/figs/*"

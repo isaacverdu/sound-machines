@@ -1,0 +1,47 @@
+project:
+  type: website
+  # Only essays and the front page are rendered. Everything else in a
+  # milestone folder (notes, sources, model code, outputs) is left alone.
+  render:
+    - index.qmd
+    - milestones/*/index.qmd
+
+website:
+  title: "Sound Machines"
+  description: "The art, science and history of music technology, told from the signal's point of view."
+  favicon: static/favicon.ico
+  navbar:
+    title: "Sound Machines"
+    collapse-below: lg
+    right:
+      - text: "Timeline"
+        href: index.qmd
+  page-navigation: false
+  back-to-top-navigation: false
+  page-footer:
+    left: |
+      Local preview site. The published essays live on Ghost.
+    right: |
+      Theme: <a href='https://github.com/skriptum/quarto-pressmark' target='_blank'>Pressmark</a>
+
+execute:
+  # Cache executed cells in _freeze/ so a full-site render never re-runs
+  # every model. Commit _freeze/ to git. Delete a milestone's folder inside
+  # _freeze/ to force it to re-execute.
+  freeze: auto
+
+
+format:
+  html:
+    theme: [pressmark.scss, signal.scss]
+    toc: true
+    toc-location: body
+    html-math-method: katex
+    link-external-icon: false
+    link-external-newwindow: true
+    code-fold: true
+    code-summary: "show the code"
+    code-tools: false
+    fig-width: 8
+    fig-height: 2.6
+    fig-dpi: 150

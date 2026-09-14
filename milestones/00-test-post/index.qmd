@@ -1,0 +1,151 @@
+---
+title: "Test post: every element in one place"
+subtitle: "A pipeline check, not a milestone"
+description: "Exercises every element an essay uses — narrative beats, signal blocks, code, math, audio, figures, notes, tables, citations — so each can be checked in Quarto and in Ghost."
+author: "YOUR NAME"
+date: 2026-09-14        # publication date  → "Published" in the timeline
+year: 2026              # milestone year    → "Milestone" in the timeline
+categories: [meta]
+image: out/figs/ping-waveform.png
+bibliography: sources.bib
+---
+
+::: {.callout-warning appearance="simple"}
+This post exists to test the publishing pipeline. Every element below is
+one a real essay will use. Unpublish it once essay 01 is live.
+:::
+
+<!--
+NARRATIVE THREAD
+Six beats, same order every essay. Plain language. No code, no math that
+the reader has to parse. Must read cleanly on its own: this thread is the
+newsletter email and the audio version.
+-->
+
+## A room, a sound, a date {#cold-open}
+
+Stanford, late 1982. A terminal, a loudspeaker, and two students who have
+found that a few dozen memory locations and a single averaging instruction
+produce something that sounds unmistakably like a plucked string.[^cold]
+
+This is **beat one, the cold open**: a scene, a sound, a moment. *Italics*
+and **bold** are fine here; headings above this level are not. Keep it
+around 150 words.
+
+[^cold]: Footnotes are for asides that would interrupt the story. Sources
+    go in `sources.bib` instead, and are cited inline like this
+    [@karplus1983].
+
+## What couldn't be done {#problem}
+
+Beat two states the problem. Before this milestone, what was impossible,
+or too expensive, or too slow? What did musicians do instead?
+
+::: {.column-margin}
+A **margin note** sits beside the paragraph. Use it for the FPGA aside, a
+date, or a one-line "for the engineers" remark. Keep it under 40 words.
+:::
+
+::: {.callout-note .signal icon=false title="Follow the signal"}
+**Block A — the signal before.** A signal block answers the one question
+the narrative just raised, then stops. Text is visible; code is folded. Here
+the question is "what does a simple tone even look like?", so we make one.
+
+```{python}
+#| label: fig-ping-waveform
+#| fig-cap: "The first 20 ms of a decaying two-partial tone: a fundamental at 440 Hz plus a quieter partial at 1320 Hz."
+import sys; sys.path.insert(0, "model")
+from ping import ping
+from sm import FS, io, plot
+
+y = ping()                                   # the model
+io.write_wav("out/audio/ping.wav", y)        # keep the artifact on disk
+plot.waveform(y, t_max=0.02);
+```
+
+The sound itself, rendered by the same code:
+
+```{python}
+#| echo: false
+from IPython.display import Audio
+Audio(y, rate=FS)
+```
+:::
+
+## The insight {#insight}
+
+Beat three is the idea in plain words, and the audio-critical paragraph. If
+a listener hears only this section, they should still come away knowing
+*why* the milestone worked. No equations. One image, if any.
+
+> A blockquote for a primary-source line, a quote from the inventor, or an
+> advertisement of the period. Attribute it in a footnote or citation.
+
+::: {.callout-note .signal icon=false title="Follow the signal"}
+**Block B — the mechanism.** This is the block every essay has. Inline math
+is fine here: the fundamental period is $T = 1/f_0$, and the sample delay
+that produces it is $N = f_s / f_0$. Display math gets its own line:
+
+$$
+y[n] = e^{-\alpha n / f_s}\,\big(\sin(2\pi f_0 n / f_s) + 0.3\,\sin(2\pi\,3 f_0\, n / f_s)\big)
+$$
+
+```{python}
+#| label: fig-ping-spectrum
+#| fig-cap: "Magnitude spectrum of the tone. Two peaks, as promised by the equation."
+plot.spectrum(y, f_max=3000);
+```
+
+A small table when parameters need listing:
+
+| parameter | value  | meaning                         |
+|-----------|--------|---------------------------------|
+| $f_0$     | 440 Hz | fundamental                     |
+| $\alpha$  | 4 /s   | decay rate                      |
+| $f_s$     | 44.1 k | sample rate                     |
+
+: Parameters of the test tone. {.striped}
+:::
+
+## The people and the machine {#story}
+
+Beat four is the story proper: who, where, with what constraints, and what
+went wrong first. This is usually the longest beat.
+
+::: {.callout-note .signal icon=false title="Follow the signal"}
+**Block C — the detail that makes it sound right.** The tweak the inventors
+found, or the one everyone gets wrong. Often the most interesting
+engineering in the essay. Code here can be shown without executing:
+
+```python
+# Shown, not run. Use a plain ```python fence when the point is to read
+# the code rather than to produce a figure.
+def one_pole_lowpass(x, a=0.5):
+    y = np.zeros_like(x)
+    for n in range(1, len(x)):
+        y[n] = (1 - a) * x[n] + a * y[n - 1]
+    return y
+```
+
+And an audio file already on disk can be embedded with plain HTML, which
+is also exactly how it goes into a Ghost HTML card:
+
+<audio controls src="out/audio/ping.wav"></audio>
+:::
+
+## What it changed {#legacy}
+
+Beat five: the records, the imitators, the descendants. Concrete names and
+years. Two or three paragraphs.
+
+## Coda {#coda}
+
+Beat six returns to the cold open with one image to leave on. Short.
+
+---
+
+*Run it yourself:* the model and outputs for this post live in
+[`milestones/00-test-post`](https://github.com/YOUR-USER/sound-machines/tree/main/milestones/00-test-post)
+of the Sound Machines repository.
+
+## Sources

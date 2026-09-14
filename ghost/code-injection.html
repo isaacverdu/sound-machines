@@ -1,0 +1,55 @@
+<!--
+  Ghost Admin → Settings → Code injection → Site header.
+  This file is the canonical copy. Edit here, then paste the whole thing over
+  the contents of the box. Three things live in it:
+    1. MathJax   – renders $inline$ and $$display$$ LaTeX in posts
+    2. Prism     – syntax highlighting for <pre><code class="language-python">
+    3. .signal   – the "Follow the signal" block style (mirrors signal.scss)
+-->
+
+<!-- 1. MathJax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+      // don't try to typeset inside code blocks or the editor's own markup
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async id="MathJax-script"
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<!-- 2. Prism -->
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<!-- 3. Signal blocks -->
+<style>
+  .signal {
+    border-left: 3px solid #990f3d;
+    background: rgba(0, 0, 0, 0.035);
+    margin: 2.2rem 0;
+    padding: 1rem 1.4rem 1.2rem;
+    font-size: 0.95em;
+  }
+  .signal .signal-label {
+    font-variant: small-caps;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #990f3d;
+    margin: 0 0 0.6rem;
+  }
+  .signal p:last-child { margin-bottom: 0; }
+  .signal figure, .signal img { max-width: 100%; margin: 0.8rem 0; }
+  .signal audio { width: 100%; margin: 0.6rem 0; }
+  .signal pre { margin: 0.8rem 0; }
+  /* Ghost wraps code in <pre><code>; Prism theme handles the rest. */
+  .signal table { font-size: 0.9em; width: 100%; border-collapse: collapse; }
+  .signal th, .signal td { padding: 0.3em 0.6em; border-bottom: 1px solid rgba(0,0,0,0.15); text-align: left; }
+</style>

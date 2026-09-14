@@ -1,0 +1,33 @@
+/*-- scss:defaults --*/
+// Sound Machines additions layered on top of Pressmark. Keep pressmark.scss
+// untouched so upstream updates can be dropped in.
+
+/*-- scss:rules --*/
+
+// "Follow the signal" blocks: the technical thread. Visible text, folded code.
+// Mirror of the .signal style in ghost/code-injection.html — keep them in sync.
+.callout.signal {
+  border-left: 3px solid $highlight-color;
+  background: $primary-color-shade;
+  border-radius: 0;
+  margin: 1.8rem 0;
+  padding: 0.2rem 0;
+
+  .callout-header {
+    background: transparent;
+    font-family: "Playfair Display SC", serif;
+    font-variant: small-caps;
+    letter-spacing: 0.06em;
+    font-size: 0.95rem;
+    color: $highlight-color;
+    padding-bottom: 0;
+  }
+
+  .callout-body-container {
+    font-size: 0.95em;
+  }
+
+  // keep figures and audio players inside the block's measure
+  figure, audio { max-width: 100%; }
+  audio { width: 100%; margin: 0.6rem 0; }
+}
