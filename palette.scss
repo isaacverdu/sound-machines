@@ -1,0 +1,28 @@
+/*-- scss:defaults --*/
+// Sound Machines palette.
+//
+// This file is listed BEFORE pressmark.scss in _quarto.yml. Quarto emits
+// scss:defaults in reverse theme order, so being first in the list puts these
+// assignments last in the compiled Sass — which is what makes them win.
+// pressmark declares its colours without !default, so overriding them from a
+// file listed after it has no effect; this is the way to restyle pressmark
+// without editing pressmark.scss.
+
+// The whole site takes the colour the post cards used to have on their own.
+$primary-color: #f0eee7;
+
+// Everything pressmark panels with the "shade" colour — cards, code blocks,
+// the TOC box, blockquotes, table stripes, and the "Follow the signal" blocks
+// in signal.scss — steps one shade deeper so it still reads as a panel
+// against the warmer page.
+$primary-color-shade: darken($primary-color, 5%);
+
+// pressmark hands these Bootstrap variables its colours by assignment, and
+// Sass evaluates that eagerly — so the assignments above arrive too late for
+// them and they keep the old values unless restated here.
+$body-bg: $primary-color;
+$navbar-bg: $primary-color;
+$navbar-toggler-border-color: $primary-color;
+$code-block-bg: $primary-color-shade;
+$code-bg: $primary-color-shade;
+$border-color: darken($primary-color-shade, 5%);

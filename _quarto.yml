@@ -34,7 +34,7 @@ execute:
 
 format:
   html:
-    theme: [pressmark.scss, signal.scss]
+    theme: [palette.scss, pressmark.scss, signal.scss]
     toc: true
     toc-location: body
     html-math-method: katex
