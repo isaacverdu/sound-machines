@@ -32,13 +32,85 @@
   audio { width: 100%; margin: 0.6rem 0; }
 }
 
-// Homepage timeline grid: break out of the narrow essay column so the four
-// post columns can use ~80% of the viewport, magazine-front-page style.
-// The .column-screen class (added in index.qmd) gives this element a
-// symmetric, viewport-wide grid track to center within.
-#listing-timeline.column-screen {
-  width: 80vw;
-  max-width: 80vw;
-  margin-left: auto;
-  margin-right: auto;
+// ── Post header ─────────────────────────────────────────────────────────────
+// Show the metadata, not the labels for it: the categories, the author name
+// and the date all read as what they are without "TAGS:", "Author" or
+// "Published" announcing them. Both are pressmark/Quarto defaults overridden
+// here rather than edited upstream.
+
+// Quarto emits these as real elements above each value in the title block.
+.quarto-title-meta-heading {
+  display: none;
+}
+
+// The hidden heading was carrying the 1em that separated the author/date row
+// from the description above it; put it back on the row so the header keeps
+// the spacing it had.
+#title-block-header.quarto-title-block.default .quarto-title-meta {
+  margin-top: 1em;
+}
+
+// pressmark prefixes the category list with a "TAGS: " pseudo-element.
+.quarto-categories::before {
+  content: none;
+}
+
+// ── Post layout ─────────────────────────────────────────────────────────────
+// The home page narrows its title and intro text to the width of the two
+// middle columns of the 4-up post grid; post pages use the same measure so a
+// reader moving from the timeline into an essay sees the text land in the
+// same place at the same width.
+//
+// The grid is 85vw wide with four equal columns and a 1.5em gap, so two
+// columns plus the gap between them come to (85vw - 4.5em)/2 + 1.5em.
+:root {
+  // Two middle columns of the home page post grid. index.qmd uses this for
+  // the title, subtitle, intro and sort control.
+  --sm-grid-span-2: calc(42.5vw - 0.75em);
+
+  // Same measure for post body text, but never below Quarto's own 500px
+  // floor — under roughly 1200px the raw span gets too narrow to read.
+  --sm-post-measure: max(500px, var(--sm-grid-span-2));
+
+  // The margin column that carries the sidebar annotations, and the gutter
+  // on either side of it. These are Quarto's own values, restated here so the
+  // annotations keep exactly their current width and their current offset
+  // from the body column. The min is what Quarto lets the column squeeze to
+  // when a narrow window leaves no room.
+  --sm-margin-width: 145px;
+  --sm-margin-width-min: 75px;
+  --sm-margin-gutter: 35px;
+}
+
+// Quarto hangs the margin column off the right of the body column, which
+// pushes the body itself left of centre. Mirroring that block as empty space
+// on the left makes the two flanks equal, so the body column lands dead
+// centre while the annotations keep their width and their offset from it.
+//
+// Every track in the left mirror has a minmax() floor of 0, so on a window
+// too narrow for the whole arrangement the mirror gives its space back before
+// anything else is touched: the body drifts back off centre rather than
+// overflowing, and the narrowest layout that still fits is the same one
+// Quarto falls back to today.
+//
+// .fullcontent is the home page (no TOC, no margin column); it sets its own
+// width in index.qmd and is left alone.
+@media (min-width: 768px) {
+  body:not(.fullcontent) .page-columns {
+    grid-template-columns:
+      [screen-start] 1.5em
+      [screen-start-inset] 1fr
+      [page-start] minmax(0px, var(--sm-margin-gutter))
+      [page-start-inset] minmax(0px, var(--sm-margin-width))
+      [body-start-outset] minmax(0px, var(--sm-margin-gutter))
+      [body-start] 1.5em
+      [body-content-start] var(--sm-post-measure)
+      [body-content-end] 1.5em
+      [body-end] var(--sm-margin-gutter)
+      [body-end-outset] minmax(var(--sm-margin-width-min), var(--sm-margin-width))
+      [page-end-inset] var(--sm-margin-gutter)
+      [page-end] 1fr
+      [screen-end-inset] 1.5em
+      [screen-end];
+  }
 }

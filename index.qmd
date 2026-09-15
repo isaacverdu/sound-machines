@@ -18,6 +18,44 @@ listing:
   feed: false
 ---
 
+```{=html}
+<style>
+/* Homepage only: widen the whole content column instead of Quarto's narrow
+   reading column. main.content is a real grid item (grid-column:
+   body-content-start/body-content-end), so re-pointing it at the full
+   screen-start/screen-end track and re-centering it here genuinely works —
+   its children (title block, paragraphs, listing) just fill it at 100%. */
+#quarto-document-content {
+  grid-column: screen-start / screen-end;
+  width: 85vw;
+  max-width: 85vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Title, subtitle, intro text, and the sort control: narrow to the width of
+   the two center columns of the 4-column post grid below (same 1.5em grid
+   gap), centered on the same axis as the wider 85vw content column.
+   --sm-grid-span-2 is defined in signal.scss, which also gives post pages
+   this same measure. */
+#title-block-header,
+#quarto-document-content > p,
+.listing-actions-group {
+  width: var(--sm-grid-span-2);
+  max-width: var(--sm-grid-span-2);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Post cards: keep year/date in the listing data (sort-ui needs them), but
+   only show the title and description on the card itself. */
+#listing-timeline .card-attribution,
+#listing-timeline .card-other-values {
+  display: none;
+}
+</style>
+```
+
 Each entry below is one milestone in the history of music technology: a
 technique, a breakthrough, a machine. The story is told twice — once as
 history, for anyone who loves music, and once as a signal, for anyone who
@@ -26,5 +64,5 @@ wants to know what actually happens to the sound.
 Sort by *Milestone* to read chronologically, or by *Published* to see what's
 new.
 
-::: {#timeline .column-screen}
+::: {#timeline}
 :::
