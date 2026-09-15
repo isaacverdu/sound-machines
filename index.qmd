@@ -47,6 +47,24 @@ listing:
   margin-right: auto;
 }
 
+/* Holding half the content width all the way down leaves a narrowing window
+   with more margin than text, so under 992px the text takes the whole content
+   column instead. That is half of a 1984px screen, so a window halved from
+   any usual size is already full width by the time it gets here.
+
+   There is no useful step in between: a centered block only lines up with the
+   card columns at two columns or at the full four, since an odd span centered
+   in four sits half a column off the grid either side. Move this breakpoint
+   down to 767.98px if the intro reads too wide in the 768-992px band. */
+@media (max-width: 991.98px) {
+  #title-block-header,
+  #quarto-document-content > p,
+  .listing-actions-group {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 /* Post cards: keep year/date in the listing data (sort-ui needs them), but
    only show the title and description on the card itself. */
 #listing-timeline .card-attribution,
