@@ -5,12 +5,13 @@ toc: false
 listing:
   id: timeline
   contents: milestones/*/index.qmd
-  type: default
+  type: grid
+  grid-columns: 4
   sort: "year asc"
   sort-ui: [year, date]
   filter-ui: false
-  categories: true
-  fields: [year, title, description, date, categories]
+  categories: false
+  fields: [image, year, title, description, date]
   field-display-names:
     year: "Milestone"
     date: "Published"
@@ -25,5 +26,5 @@ wants to know what actually happens to the sound.
 Sort by *Milestone* to read chronologically, or by *Published* to see what's
 new.
 
-::: {#timeline}
+::: {#timeline .column-screen}
 :::

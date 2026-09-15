@@ -6,9 +6,11 @@ author: "YOUR NAME"
 date: 2026-09-14        # publication date  → "Published" in the timeline
 year: 2026              # milestone year    → "Milestone" in the timeline
 categories: [meta]
-image: out/figs/ping-waveform.png
+image: out/figs/jesus-soto-repetition.jpg
 bibliography: sources.bib
 ---
+
+![Two students, a terminal, and a loudspeaker. Stanford, 1982.](out/figs/jesus-soto-repetition.jpg){.preview-image fig-align="center"}
 
 ::: {.callout-warning appearance="simple"}
 This post exists to test the publishing pipeline. Every element below is
