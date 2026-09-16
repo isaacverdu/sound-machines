@@ -70,7 +70,17 @@
 
   // Same measure for post body text, but never below Quarto's own 500px
   // floor — under roughly 1200px the raw span gets too narrow to read.
-  --sm-post-measure: max(500px, var(--sm-grid-span-2));
+  //
+  // The floor itself yields once the window cannot hold it alongside the
+  // gutters and the margin column: four 1.5em gutters plus 500px plus the
+  // margin block at its narrowest come to 772.5px, so a 768px tablet in
+  // portrait is 4.5px short and the page would pan sideways. Quarto has the
+  // same shortfall; capping the measure at what is actually available closes
+  // it. Above ~773px this term never binds and the measure is unchanged.
+  --sm-post-measure: min(
+    max(500px, var(--sm-grid-span-2)),
+    calc(100% - 6em - 2 * var(--sm-margin-gutter) - var(--sm-margin-width-min))
+  );
 
   // The margin column that carries the sidebar annotations, and the gutter
   // on either side of it. These are Quarto's own values, restated here so the
@@ -113,4 +123,32 @@
       [screen-end-inset] 1.5em
       [screen-end];
   }
+}
+
+// ── Nothing wider than its column ───────────────────────────────────────────
+// A phone sizes the layout viewport to the widest thing on the page, so one
+// block that will not fit shrinks the whole page: it arrives already zoomed
+// out, pans sideways as you scroll, and the text ends up on about two thirds
+// of the screen.
+
+// Display math does not reflow, so a long equation is simply wider than a
+// phone — and this was the one block still pushing the page out, since Quarto
+// already lets figures and code blocks scroll inside themselves. Give it the
+// same treatment rather than letting it widen the document.
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.4em; // room for the scrollbar, clear of the glyphs
+}
+
+// A generated figure carries the pixel width matplotlib rendered it at (1185px
+// for an 8in figure at 150dpi, doubled for retina), which is wider than the
+// column on any screen. Quarto's wrapper scrolls rather than overflowing, so
+// this never moved the page — it just meant the right-hand end of every plot,
+// x-axis label included, could only be reached by scrolling the figure
+// sideways. Scale to the column instead.
+.cell-output-display img,
+figure img {
+  max-width: 100%;
+  height: auto;
 }
