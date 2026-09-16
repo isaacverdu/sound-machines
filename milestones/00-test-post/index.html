@@ -103,7 +103,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e29bf875d5e97782b94105d280301f29.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-65db6301fa9bbd09e9fd1db380bcdabd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-cf843ccc1843b1541345d50c7a55c547.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -218,6 +218,13 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
+<!-- Overrides Quarto's default title block (share/formats/html/templates/
+     title-block.html) to carry the post image. Registered in _quarto.yml via
+     template-partials. Everything here matches upstream except the
+     .quarto-title-image figure, which sits below the byline and is drawn
+     from the same `image:` the listing card uses, so a
+     post gets it by having an image at all. `image-caption` is ours; Pandoc
+     parses it as markdown, so it can carry emphasis and a link. -->
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Test post: every element in one place</h1>
@@ -255,6 +262,11 @@ window.Quarto = {
   
 
 
+<figure class="quarto-title-image figure">
+<img src="out/figs/jesus-soto-repetition.jpg" alt="Jesús Soto, Repetición: rows of thin black bars over a striped ground, set vibrating by the moiré between them." class="figure-img">
+<figcaption class="figure-caption">Jesús Soto, <em>Repetición</em>.</figcaption>
+</figure>
+
 </header>
 
 <nav id="TOC" role="doc-toc">
@@ -270,12 +282,6 @@ window.Quarto = {
   <li><a href="#sources" id="toc-sources">Sources</a></li>
   </ul>
 </nav>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="out/figs/jesus-soto-repetition.jpg" class="preview-image img-fluid figure-img"></p>
-<figcaption>Jesús Soto, <em>Repetición</em>.</figcaption>
-</figure>
-</div>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -339,7 +345,7 @@ Figure&nbsp;1: The first 20 ms of a decaying two-partial tone: a fundamental at 
 </div>
 </div>
 <p>The sound itself, rendered by the same code:</p>
-<div id="acb0ee5e" class="cell" data-execution_count="2">
+<div id="4691f8cc" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 
                 <audio controls="controls">
