@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e29bf875d5e97782b94105d280301f29.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-027845da5cd18700c5c7da224edb11fe.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-bdf66292288871a794e70a7e6aa61fbf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -86,9 +86,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-year','listing-title','listing-description','listing-date','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-image','listing-year','listing-title','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -152,7 +152,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -184,8 +184,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWV0YQ==">meta <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -209,9 +208,62 @@ window.Quarto = {
 </header>
 
 
+<style>
+/* Homepage only: widen the whole content column instead of Quarto's narrow
+   reading column. main.content is a real grid item (grid-column:
+   body-content-start/body-content-end), so re-pointing it at the full
+   screen-start/screen-end track and re-centering it here genuinely works —
+   its children (title block, paragraphs, listing) just fill it at 100%. */
+#quarto-document-content {
+  grid-column: screen-start / screen-end;
+  width: 85vw;
+  max-width: 85vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Title, subtitle, intro text, and the sort control: narrow to the width of
+   the two center columns of the 4-column post grid below (same 1.5em grid
+   gap), centered on the same axis as the wider 85vw content column.
+   --sm-grid-span-2 is defined in signal.scss, which also gives post pages
+   this same measure. */
+#title-block-header,
+#quarto-document-content > p,
+.listing-actions-group {
+  width: var(--sm-grid-span-2);
+  max-width: var(--sm-grid-span-2);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Holding half the content width all the way down leaves a narrowing window
+   with more margin than text, so under 992px the text takes the whole content
+   column instead. That is half of a 1984px screen, so a window halved from
+   any usual size is already full width by the time it gets here.
+
+   There is no useful step in between: a centered block only lines up with the
+   card columns at two columns or at the full four, since an odd span centered
+   in four sits half a column off the grid either side. Move this breakpoint
+   down to 767.98px if the intro reads too wide in the 768-992px band. */
+@media (max-width: 991.98px) {
+  #title-block-header,
+  #quarto-document-content > p,
+  .listing-actions-group {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Post cards: keep year/date in the listing data (sort-ui needs them), but
+   only show the title and description on the card itself. */
+#listing-timeline .card-attribution,
+#listing-timeline .card-other-values {
+  display: none;
+}
+</style>
 <p>Each entry below is one milestone in the history of music technology: a technique, a breakthrough, a machine. The story is told twice — once as history, for anyone who loves music, and once as a signal, for anyone who wants to know what actually happens to the sound.</p>
 <p>Sort by <em>Milestone</em> to read chronologically, or by <em>Published</em> to see what’s new.</p>
-<div id="listing-timeline" class="quarto-listing quarto-listing-container-default">
+<div id="listing-timeline" class="quarto-listing quarto-listing-container-grid">
 <div class="listing-actions-group">
    <div class="input-group input-group-sm quarto-listing-sort">
     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
@@ -230,31 +282,39 @@ window.Quarto = {
     </select>
   </div>
 </div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="bWV0YQ==" data-listing-date-sort="1789336800000" data-listing-file-modified-sort="1789398477904" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="815">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./milestones/00-test-post/index.html" class="no-external">Test post: every element in one place</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWV0YQ=='); return false;">meta</div>
-
-</div>
-<div class="delink listing-description"><a href="./milestones/00-test-post/index.html" class="no-external">
+<div class="list grid quarto-listing-cols-4">
+<div class="g-col-1" data-index="0" data-categories="bWV0YQ==" data-listing-date-sort="1789336800000" data-listing-file-modified-sort="1789506571917" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="818">
+<a href="./milestones/00-test-post/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./milestones/00-test-post/out/figs/jesus-soto-repetition.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Test post: every element in one place
+</h5>
+<div class="card-text listing-description delink">
 <p>Exercises every element an essay uses — narrative beats, signal blocks, code, math, audio, figures, notes, tables, citations — so each can be checked in Quarto and in Ghost.</p>
-</a></div>
 </div>
-<div class="metadata">
-<a href="./milestones/00-test-post/index.html" class="no-external">
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Sep 14, 2026
 </div>
-<div class="metadata-value listing-year">
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+Milestone
+</td>
+<td class="year">
 2026
+</td>
+</tr>
+
+</tbody></table>
 </div>
-</a>
-</div>
+</div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
