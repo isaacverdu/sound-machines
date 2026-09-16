@@ -1,0 +1,47 @@
+<!-- Overrides Quarto's default title block (share/formats/html/templates/
+     title-block.html) to carry the post image. Registered in _quarto.yml via
+     template-partials. Everything here matches upstream except the
+     .quarto-title-image figure, which sits below the byline and is drawn
+     from the same `image:` the listing card uses, so a
+     post gets it by having an image at all. `image-caption` is ours; Pandoc
+     parses it as markdown, so it can carry emphasis and a link. -->
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+$if(title)$
+<h1 class="title">$title$</h1>
+$endif$
+$if(subtitle)$
+<p class="subtitle lead">$subtitle$</p>
+$endif$
+$if(categories)$
+  $if(quarto-template-params.title-block-categories)$
+<div class="quarto-categories">
+  $for(categories)$
+  <div class="quarto-category">$categories$</div>
+  $endfor$
+</div>
+  $endif$
+$endif$
+</div>
+
+$if(hide-description)$
+$elseif(description)$
+<div>
+  <div class="description">
+    $description$
+  </div>
+</div>
+$endif$
+
+$title-metadata.html()$
+
+$if(image)$
+<figure class="quarto-title-image">
+<img src="$image$"$if(image-alt)$ alt="$image-alt$"$endif$>
+$if(image-caption)$
+<figcaption class="figure-caption">$image-caption$</figcaption>
+$endif$
+</figure>
+$endif$
+
+</header>

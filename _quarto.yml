@@ -35,6 +35,8 @@ execute:
 format:
   html:
     theme: [palette.scss, pressmark.scss, signal.scss]
+    # Adds the post image to the title block; see the file for what differs.
+    template-partials: [title-block.html]
     toc: true
     toc-location: body
     html-math-method: katex

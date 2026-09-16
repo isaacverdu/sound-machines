@@ -6,11 +6,11 @@ author: "Isaac Verdu"
 date: 2026-09-14        # publication date  → "Published" in the timeline
 year: 2026              # milestone year    → "Milestone" in the timeline
 categories: [meta]
-image: out/figs/jesus-soto-repetition.jpg
+image: out/figs/jesus-soto-repetition.jpg   # listing card, and the title block
+image-alt: "Jesús Soto, Repetición: rows of thin black bars over a striped ground, set vibrating by the moiré between them."
+image-caption: "Jesús Soto, *Repetición*."
 bibliography: sources.bib
 ---
-
-![Jesús Soto, *Repetición*.](out/figs/jesus-soto-repetition.jpg){.preview-image fig-align="center"}
 
 ::: {.callout-warning appearance="simple"}
 This post exists to test the publishing pipeline. Every element below is

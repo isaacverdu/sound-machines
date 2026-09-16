@@ -6,21 +6,57 @@
 
 // "Follow the signal" blocks: the technical thread. Visible text, folded code.
 // Mirror of the .signal style in ghost/code-injection.html — keep them in sync.
-.callout.signal {
+//
+// The leading `div` is load-bearing. These blocks are authored as
+// .callout-note, and Quarto styles that with `div.callout-note.callout` and
+// `div.callout-note.callout-style-default > .callout-header` — one element
+// selector more specific than a bare `.callout.signal`, so its blue was
+// winning on the left border and the header band while the rest of this rule
+// applied. Matching its specificity hands the tie to source order, and
+// signal.scss is layered after Quarto's own rules.
+div.callout.signal {
+  // A rule down the left only, and the same rounding as a blockquote, so the
+  // two read as the same family of aside.
+  border: 0;
   border-left: 3px solid $highlight-color;
+  border-radius: 0.25rem;
   background: $primary-color-shade;
-  border-radius: 0;
   margin: 1.8rem 0;
   padding: 0.2rem 0;
 
-  .callout-header {
+  // "Follow the signal" is set as an h2 — same family, size, weight and
+  // spacing as a section heading — and keeps its own colour. The inner
+  // container is named too: Quarto weights it on its own, so letting it
+  // inherit would leave it at 600 while the header moved to 500.
+  .callout-header,
+  .callout-title-container {
     background: transparent;
-    font-family: "Playfair Display SC", serif;
-    font-variant: small-caps;
-    letter-spacing: 0.06em;
-    font-size: 0.95rem;
+    font-family: $font-family-headings;
+    font-size: $h2-font-size;
+    font-weight: 500;
+    font-variant: normal;
+    letter-spacing: normal;
+    line-height: 1.2em;
+    text-transform: none;
     color: $highlight-color;
+  }
+
+  .callout-header {
     padding-bottom: 0;
+    // The same 1rem an h2 leaves before the paragraph under it. Quarto pulls
+    // the body up into the header with a negative margin, which at h2 size
+    // left the first line of text overlapping the label.
+    margin-bottom: 1rem;
+  }
+
+  // Quarto pads both of these in em, so sizing the label as an h2 widened its
+  // indent to 0.5 x 28px while the body kept 0.5 x 20px — the label ended up
+  // 4px to the right of the text beneath it. One rem value for both keeps them
+  // flush whatever the label's size.
+  .callout-header,
+  .callout-body-container {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
   }
 
   .callout-body-container {
@@ -151,4 +187,62 @@
 figure img {
   max-width: 100%;
   height: auto;
+}
+
+// ── The post image in the title block ───────────────────────────────────────
+// title-block.html puts the post's image at the foot of the title block,
+// under the byline. It runs 1.5x the width of the text above it, centred on
+// the same axis — so a quarter of the measure spills into the space either
+// side.
+.quarto-title-image {
+  margin: 1.8em 0 0;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  figcaption {
+    margin-top: 0.6em;
+  }
+}
+
+// The spill needs a quarter of the measure free on each side, which the column
+// only has once the window is wide enough; below that the image simply matches
+// the text rather than pushing the page sideways.
+@media (min-width: 992px) {
+  .quarto-title-image {
+    width: 150%;
+    margin-left: -25%;
+  }
+}
+
+// ── Typographic tweaks ──────────────────────────────────────────────────────
+// Each of these is the size the theme already produced, scaled by the stated
+// amount, and written in the unit that size was expressed in (rem where it is
+// set against the root, em where it is set against the parent) so it keeps
+// tracking the theme rather than freezing a pixel value.
+
+// Post title and subtitle, 5% larger. Scoped away from .fullcontent so the
+// home page, whose h1 is the site title rather than a post title, is untouched.
+body:not(.fullcontent) {
+  #title-block-header h1.title {
+    font-size: 2.1rem; // 2rem — 34px → 35.7px
+  }
+
+  #title-block-header .subtitle {
+    font-size: 1.3125em; // 1.25em — 26.56px → 27.89px
+  }
+}
+
+// Post cards: title 5% larger, description 5% smaller, widening the gap
+// between the two so the title carries the card.
+.quarto-grid-item {
+  .listing-title {
+    font-size: 1.155rem; // 1.1rem — 18.7px → 19.64px
+  }
+
+  .listing-description {
+    font-size: 0.855em; // 0.9em — 19.13px → 18.17px
+  }
 }
