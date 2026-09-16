@@ -30,20 +30,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 
 <!-- 3. Signal blocks -->
+<!-- The label is set in Playfair Display to match the site, which Ghost's
+     theme has no reason to load, so fetch just the one weight it needs. -->
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
 <style>
   .signal {
     border-left: 3px solid #990f3d;
+    /* Rounded like a blockquote, as on the site. The background stays a
+       translucent darkening rather than the site's #e6e3d7, because that
+       colour is only right against the site's own #f0eee7 page; 3.5% black
+       lands in the same place on whatever Ghost's theme uses. */
+    border-radius: 0.25rem;
     background: rgba(0, 0, 0, 0.035);
     margin: 2.2rem 0;
     padding: 1rem 1.4rem 1.2rem;
     font-size: 0.95em;
   }
+  /* Reads as a heading, matching the site, where this label is styled as an
+     h2. Sized in em so it keeps the site's 28/20 heading-to-body ratio
+     whatever base size the theme sets, and left as a <p> in the markup so it
+     stays out of the post outline — the site's label is a styled div, not a
+     real heading either. */
   .signal .signal-label {
-    font-variant: small-caps;
-    letter-spacing: 0.06em;
-    font-weight: 600;
+    font-family: 'Playfair Display', 'Bodoni', 'Times New Roman', serif;
+    font-size: 1.4em;
+    font-weight: 500;
+    line-height: 1.2;
     color: #990f3d;
-    margin: 0 0 0.6rem;
+    margin: 0 0 1rem;
   }
   .signal p:last-child { margin-bottom: 0; }
   .signal figure, .signal img { max-width: 100%; margin: 0.8rem 0; }
