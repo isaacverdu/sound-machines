@@ -208,10 +208,11 @@ figure img {
 }
 
 // The spill needs a quarter of the measure free on each side, which the column
-// only has once the window is wide enough; below that the image simply matches
-// the text rather than pushing the page sideways.
+// only has once the window is wide enough; below that these simply match the
+// text rather than pushing the page sideways.
 @media (min-width: 992px) {
-  .quarto-title-image {
+  .quarto-title-image,
+  div.callout.signal {
     width: 150%;
     margin-left: -25%;
   }
