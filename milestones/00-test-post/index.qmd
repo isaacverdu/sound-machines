@@ -144,6 +144,59 @@ years. Two or three paragraphs.
 
 Beat six returns to the cold open with one image to leave on. Short.
 
+## The same model, live {#live}
+
+Everything above was executed here and baked into the page. This block is not:
+it loads Python into the reader's browser and runs the essay's own files
+against whatever the sliders say.
+
+```{python}
+#| echo: false
+#| label: live-ping-source
+# Ship sm/ and this milestone's model to the browser. Read at render time so
+# there is one copy of the maths: what the reader drives below is the same
+# source that produced the figures above, not a JavaScript restatement of it.
+# NOTE: freeze hashes this .qmd, not the files read here — delete this
+# milestone's folder in _freeze/ after editing sm/ or model/.
+import json
+from pathlib import Path
+
+from IPython.display import HTML, display
+
+sources = {f"sm/{p.name}": p.read_text() for p in sorted(Path("../../sm").glob("*.py"))}
+sources["model/ping.py"] = Path("model/ping.py").read_text()
+
+# </ inside a <script> would close it early, whatever the JSON says.
+blob = json.dumps(sources).replace("</", "<\\/")
+display(HTML(f'<script id="live-ping-source" type="application/json">{blob}</script>'))
+```
+
+::: {.callout-note .signal icon=false title="Follow the signal, live"}
+**Block D — the model in your hands.** `ping()` is a fundamental plus a
+quieter partial at three times the frequency, both decaying exponentially.
+Reading that is one thing; hearing what the decay rate does to it is another.
+
+```{=html}
+<div id="live-ping" class="live-ping">
+  <p class="live-ping-status" data-role="status">This block runs Python in your browser.</p>
+  <div class="live-ping-controls" data-role="controls" hidden>
+    <label>fundamental
+      <input type="range" data-role="f0" min="110" max="880" step="1" value="440">
+      <output data-role="f0-out">440 Hz</output>
+    </label>
+    <label>decay
+      <input type="range" data-role="decay" min="0.5" max="12" step="0.1" value="4">
+      <output data-role="decay-out">4.0 /s</output>
+    </label>
+  </div>
+  <img class="live-ping-plot" data-role="plot"
+       alt="Waveform of the tone currently dialled in, first 20 ms.">
+  <audio class="live-ping-audio" data-role="audio" controls></audio>
+</div>
+<script src="../../static/js/live-ping.js" defer></script>
+```
+:::
+
 ---
 
 *Run it yourself:* the model and outputs for this post live in
