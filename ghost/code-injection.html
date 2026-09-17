@@ -1,10 +1,11 @@
 <!--
   Ghost Admin → Settings → Code injection → Site header.
   This file is the canonical copy. Edit here, then paste the whole thing over
-  the contents of the box. Three things live in it:
+  the contents of the box. Four things live in it:
     1. MathJax   – renders $inline$ and $$display$$ LaTeX in posts
     2. Prism     – syntax highlighting for <pre><code class="language-python">
     3. .signal   – the "Follow the signal" block style (mirrors signal.scss)
+    4. code font – Menlo, matching $font-family-monospace on the site
 -->
 
 <!-- 1. MathJax -->
@@ -28,6 +29,24 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<!-- 4. Code font -->
+<!-- Menlo wherever code appears, matching $font-family-monospace in
+     pressmark.scss. Prism's theme already leads with Menlo, but only on
+     elements it has tagged with a language- class and with a different
+     fallback chain (Monaco, Andale Mono, Ubuntu Mono); inline <code> and
+     untagged blocks fall through to whatever font the Ghost theme uses. The
+     language- selectors are repeated below because Prism's own rule carries
+     an attribute selector and would outrank a bare `code, pre`; this block
+     sits after Prism's stylesheet, so matching its specificity is enough. -->
+<style>
+  code,
+  pre,
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-family: Menlo, "Liberation Mono", "Courier New", monospace;
+  }
+</style>
 
 <!-- 3. Signal blocks -->
 <!-- The label is set in Playfair Display to match the site, which Ghost's
