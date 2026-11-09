@@ -26,6 +26,14 @@ Beats, one method each, played in order by ``compose``:
     consonance     Two pitches a fifth apart unfold into waves that slide
                    together; their crests coincide at regular points.
 
+Sound, scheduled by ``soundtrack``:
+
+    A 440 Hz sine tone that swells in as the accent line draws; piano
+    notes at exactly 27.5 Hz and 4,186 Hz as the lowest and highest keys
+    vibrate; and the two waves' notes together on piano, at exactly 220
+    and 330 Hz (3:2), struck as the waves slide together and left to
+    ring out until the picture fades.
+
 Render with ``python render.py 01`` (see README.md).
 """
 
@@ -56,6 +64,7 @@ from common import (
     disappear,
     draw,
 )
+from common.audio import Piano, tone
 from common.components import (
     HIGHEST_KEY,
     LOWEST_KEY,
@@ -134,6 +143,13 @@ FIFTH_KEYS = (57, 64)  # A3 and E4, the piano's approximation of 3:2
 FIFTH_HZ = (220.0, 330.0)  # the waves are drawn as an exact 3:2
 WAVE_CYCLES = (6, 9)  # cycles across WAVE_X; same 2:3 period ratio
 
+# Sound levels, in dB of perceived loudness relative to the narration.
+NOTE_TONE_LEVEL = -12  # pure tones stand out, so keep this one lower
+LOW_KEY_LEVEL = -6
+HIGH_KEY_LEVEL = -8
+FIFTH_CHORD_LEVEL = -6
+FIFTH_FADE = 1.2  # seconds; ends with the picture's fade to blank
+
 
 class Introduction(EssayScene):
     """Every audible pitch, the few that music uses, and why."""
@@ -143,6 +159,7 @@ class Introduction(EssayScene):
 
     def compose(self) -> None:
         self.cue = self.voice.cues(CUES)
+        self.soundtrack()
         self.axis = FrequencyAxis(width=AXIS_WIDTH).shift(UP * AXIS_Y)
         self.pitch = {
             midi: PitchLine(
@@ -160,6 +177,26 @@ class Introduction(EssayScene):
         self.piano()
         self.question()
         self.consonance()
+
+    def soundtrack(self) -> None:
+        """Schedule every sound up front (sounds can't be added late)."""
+        cue, piano = self.cue, Piano()
+        # The tone swells in as the accent line draws and fades out
+        # before "but there are relatively few".
+        self.add_sfx(tone(NOTE_HZ, 1.6, attack=0.5, release=1.1),
+                     at=cue.note - 0.15, level=NOTE_TONE_LEVEL)
+        # The extreme keys sound as their pitch lines start to vibrate.
+        self.add_sfx(piano.note(midi_to_frequency(LOWEST_KEY), 2.6, 0.8),
+                     at=cue.vibrating, level=LOW_KEY_LEVEL)
+        self.add_sfx(piano.note(midi_to_frequency(HIGHEST_KEY), 1.5, 0.8),
+                     at=cue.high_freq, level=HIGH_KEY_LEVEL)
+        # The fifth is struck as the two waves start sliding together and
+        # rings out undamped, fading only with the final fade to blank.
+        start = cue.sound_good - 0.1
+        silent = self.voice.duration + self.hold_after + self.fade_out_time
+        hold = silent - FIFTH_FADE - start
+        low, high = (piano.note(hz, hold, FIFTH_FADE) for hz in FIFTH_HZ)
+        self.add_sfx(low.mix(high), at=start, level=FIFTH_CHORD_LEVEL)
 
     # 1 -----------------------------------------------------------------
 

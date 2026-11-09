@@ -48,6 +48,21 @@ and in sync with the narration.
   automatically. Use `self.discard(mob)` to remove a mobject and all of
   its parts.
 
+## Sound
+
+- Put every `self.add_sfx(...)` call in a `soundtrack()` method that
+  runs at the start of `compose`. Manim can't add a sound in the past.
+- Time sounds with the same word cues as the visuals, and line them up
+  with the visual event they belong to (a pluck, a dot appearing).
+- Set loudness only with `level`, which is relative to the narration in
+  dB of perceived loudness. Keep effects under the voice (about -8 to
+  -14) and pure tones at the low end. Never scale samples by hand.
+- Use `Piano().note(freq, duration)` for exact pitches. Never use raw
+  sample playback, because the recorded piano is stretch-tuned.
+- Each sound must end before the scene's final blank frame.
+- Any published video that uses the piano must credit "Salamander Grand
+  Piano by Alexander Holm (CC BY 3.0)".
+
 ## Manim pitfalls already hit here
 
 - Don't assign `self.width`, `self.height` or `self.color` in a Mobject

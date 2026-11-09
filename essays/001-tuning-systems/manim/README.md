@@ -87,6 +87,37 @@ pip install pocketsphinx           # offline aligner, only needed for this step
 python tools/align_narration.py 01-introduction
 ```
 
+## Sound
+
+Scenes can add sound under the narration with `common.audio`:
+
+```python
+from common.audio import Piano, tone
+
+piano = Piano()
+self.add_sfx(tone(440, 1.5), at=cues.note, level=-14)
+self.add_sfx(piano.note(220, 2.0).mix(piano.note(330, 2.0)),
+             at=cues.together, level=-9)
+```
+
+- `tone(freq, duration)` is a pure sine wave at exactly `freq` Hz.
+- `Piano().note(freq, duration)` is a sampled grand piano retuned to
+  exactly `freq` Hz, so any tuning system or ratio is possible (220 and
+  330 Hz give an exact 3:2 fifth, within a tenth of a cent). It uses the
+  Salamander Grand Piano in `assets/samples/piano`. Its licence is
+  CC BY 3.0, so **credit "Salamander Grand Piano by Alexander Holm (CC BY
+  3.0)" wherever the video is published.**
+- `level` is the sound's loudness relative to the narration, in dB of
+  perceived loudness: -10 sits clearly under the voice, 0 matches it.
+- `at` is narration time, so word cues work here too. Schedule sounds
+  at the start of `compose` (a `soundtrack()` method), since Manim can't
+  add a sound in the past. Make sure each sound ends before the scene
+  does.
+
+`tools/import_piano_samples.py` re-downloads the samples, for example
+with another velocity layer (`--layer 6` for softer notes), and
+re-measures each sample's real pitch.
+
 ## Adding a scene
 
 1. Put `NN-name.mp3` and its spoken-form `NN-name.txt` in
@@ -109,14 +140,18 @@ manim/
 │   ├── motion.py           appear, disappear, draw, Translate, Restyle
 │   ├── timeline.py         at() and Timeline: animations at narration times
 │   ├── narration.py        audio + word timings, cue lookup
-│   ├── base_scene.py       EssayScene: background, audio, blank bookends
+│   ├── base_scene.py       EssayScene: background, narration, sound, blank bookends
+│   ├── audio/              tone(), Piano sampler, perceived loudness
 │   └── components/         FrequencyAxis, PianoKeyboard, PitchLine,
 │                           TickField, SineWave, log_sweep, pluck, drift
 ├── scenes/                 one file per scene: sNN_name.py
-├── tools/align_narration.py
+├── tools/
+│   ├── align_narration.py      word timings for a voice-over
+│   └── import_piano_samples.py piano samples + measured pitches
 └── assets/
     ├── fonts/              Noto Serif + Noto Sans (SIL OFL)
-    └── narration/          audio, scripts and word timings
+    ├── narration/          audio, scripts and word timings
+    └── samples/piano/      Salamander Grand Piano, one layer (CC BY 3.0)
 ```
 
 `media/` (Manim's working files) and `renders/` (finished videos) are

@@ -1,6 +1,7 @@
 """Base class for every scene of the essay."""
 
 from collections.abc import Callable
+from functools import cached_property
 
 from manim import (
     Animation,
@@ -12,7 +13,9 @@ from manim import (
     config,
 )
 
+from .audio import Sound, file_loudness
 from .narration import Narration
+from .paths import PROJECT_ROOT
 from .theme import THEME
 from .timeline import Clip, Timeline
 from .typography import register_project_fonts
@@ -20,6 +23,8 @@ from .typography import register_project_fonts
 ClockedUpdater = Callable[[Mobject, float], object]
 
 _TIME_TOLERANCE = 1e-3
+SFX_DIR = PROJECT_ROOT / "media" / "sfx"
+REFERENCE_LOUDNESS = -23.0  # LUFS, used for scenes without narration
 
 
 class EssayScene(Scene):
@@ -129,6 +134,36 @@ class EssayScene(Scene):
         for driver in drivers:
             driver.clocked_target.remove_updater(driver.clocked_marker)
             self.remove(driver)
+
+    # Sound effects ---------------------------------------------------
+
+    def add_sfx(self, sound: Sound, at: float, level: float = -10.0) -> None:
+        """Play ``sound`` at narration time ``at``, mixed under the voice.
+
+        ``level`` is the sound's loudness relative to the narration, in
+        dB of perceived loudness (LU): the loudest moment of the sound is
+        set ``level`` below the voice's average loudness. -10 sits
+        clearly under speech; 0 matches it.
+
+        Sounds are rendered to ``media/sfx`` (cached by content) and
+        mixed into the soundtrack by Manim. Schedule them in advance,
+        never in the past, and make them end before the scene does.
+        """
+        offset = at + self.lead_in - self.time
+        if offset < -_TIME_TOLERANCE:
+            raise ValueError(
+                f"Sound scheduled at {at:.2f}s but the scene is already at "
+                f"{self.now:.2f}s. Schedule it earlier in compose().")
+        sound = sound.at_loudness(self.voice_loudness + level)
+        path = sound.write(SFX_DIR / f"{sound.fingerprint()}.wav")
+        self.add_sound(str(path), time_offset=max(offset, 0.0))
+
+    @cached_property
+    def voice_loudness(self) -> float:
+        """Integrated loudness of the narration in LUFS (-23 if none)."""
+        if self.voice is None:
+            return REFERENCE_LOUDNESS
+        return file_loudness(self.voice.audio_path)
 
     # Ending ----------------------------------------------------------
 
