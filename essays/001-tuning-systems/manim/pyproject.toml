@@ -1,0 +1,7 @@
+# Tooling configuration. Dependencies live in requirements.txt.
+
+[tool.isort]
+profile = "black"
+line_length = 79
+known_first_party = ["common"]
+known_third_party = ["manim", "manimpango", "av", "numpy", "pocketsphinx"]

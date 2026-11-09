@@ -1,0 +1,6 @@
+# Rendering (tested with Manim Community 0.22.1, Python 3.13).
+manim>=0.22,<0.23
+numpy
+
+# Only needed to regenerate word timings with tools/align_narration.py.
+pocketsphinx>=5.0

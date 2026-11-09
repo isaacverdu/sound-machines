@@ -1,6 +1,0 @@
-numpy
-scipy
-matplotlib
-soundfile
-jupyter
--e .

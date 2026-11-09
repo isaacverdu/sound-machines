@@ -1,0 +1,6 @@
+The human ear can perceive frequencies between twenty hertz and twenty thousand hertz.
+That's a practically infinite number of pitched sounds that most people can hear.
+In music, each note we hear is a pitched sound, but there are relatively few.
+A grand piano, for instance, has eighty eight keys, with the lowest vibrating at twenty seven point five hertz and the highest at four thousand one hundred eighty six hertz.
+So how do we choose the specific frequencies that will make up the notes in our music?
+In short: we choose frequencies that sound good when played together.
